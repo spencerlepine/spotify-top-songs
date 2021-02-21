@@ -1,0 +1,226 @@
+.App {
+  text-align: center;
+  color: white;
+}
+
+.App-logo {
+  height: 4vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.accountStatus {
+  padding: 2%;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #1d1f23;
+  background-color: #ffffff14;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 5%;
+  padding-bottom: 15px;
+}
+
+footer img {
+  width: 80%;
+  margin: auto;
+  max-height: 33px;
+  max-width: 33px;
+}
+
+footer p {
+  width: fit-content;
+  color: lightgray;
+  margin: auto;
+}
+
+footer a {
+  color: orange;
+}
+
+.footerLinks {
+  display: grid;
+  grid-template-columns: 8vw auto 8vw;
+  justify-content: center;
+  margin: auto;
+  border-radius: 20px;
+  border: 2px solid #353535;
+  background-color: #21252d;
+  width: fit-content;
+  height: auto;
+  padding: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+  padding-bottom: 20px;
+}
+
+/* https://dev.to/igorzanelladev/simple-3d-css-buttons-2aj7 */
+button {
+  box-shadow: 0 0.6em #34c211, 0 0.9em rgb(0 0 0 / 40%);
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 1rem;
+  font-size: 1.2em;
+  color: #d2ffda;
+  background-color: #089245;
+  border: green 3px solid;
+  border-radius: 1.4vh;
+  padding: 1% 2%;
+}
+
+button:hover {
+  top: 0.2em;
+  box-shadow: 0 0.4em #26c211, 0 0.7em rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+  top: 0.6em;
+  box-shadow: 0 0.2em rgba(0, 0, 0, 0.4);
+}
+
+.userWelcome {
+  color: #abffab;
+  font-family: arial;
+}
+
+.stepInstructions {
+  color: rgb(169 169 169);
+  width: 100%;
+}
+
+/* FLEX GRID SELECTION */
+.cardGrid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1%;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+.card img {
+  width: 80%;
+  height: 90%;
+  margin: auto;
+  border-radius: 50%;
+  min-height: 80px;
+  min-width: 80px;
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.card {
+  min-width: 100px;
+  min-height: 100px;
+  height: 30%;
+  width: 20%;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 5px;
+  margin-top: 1%;
+  font-size: 1.5vh;
+}
+
+.card div {
+  height: min(20vh, 20vw);
+  overflow: hidden;
+}
+
+.card p {
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.card.category {
+  display: flex;
+  align-items: center;
+}
+
+.category p {
+  margin: auto;
+  font-size: 1.3em;
+  font-weight: bold;
+  width: min-content;
+}
+
+.checked {
+  position: relative;
+  color: #5f5f5f;
+}
+
+.checked:before {
+  content: "\2713";
+  font-size: x-large;
+  color: white;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  top: 1%;
+  right: 8%;
+  background-color: green;
+  border-radius: 50%;
+  font-weight: bolder;
+}
+
+.generateBTN {
+  position: fixed;
+  top: 2%;
+  right: 5%;
+}
+
+.category {
+  border: 2px solid #444444;
+  border-radius: 5px;
+}
+
+.category:hover {
+  background-color: #ffffff0f;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+
+.progressBar {
+  animation: load;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  background-color: green;
+  height: 10px;
+  width: 80vw;
+  margin-left: 10vw;
+}
+
+@keyframes load {
+  from {
+    width: 0vw;
+  }
+  to {
+    width: 80vw;
+  }
+}
