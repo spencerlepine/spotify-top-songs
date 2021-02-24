@@ -20,5 +20,5 @@ export default App;
   Set language on request
   handle errors (error page?)
   abstract card function
-  merge the branches
+  make playlist 
 */

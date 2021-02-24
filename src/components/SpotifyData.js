@@ -87,7 +87,7 @@ function SpotifyData() {
                     setFeaturedArtists((prevArray) => {
                         // Skip if this artist already was saved
                         for (let i = 0, l = prevArray.length; i < l; i++) {
-                            if (prevArray[i].name === thisArtist.name) {
+                            if (`${prevArray[i].id}` === `${thisArtist.id}`) {
                                 return prevArray
                             }
                         }
@@ -101,6 +101,7 @@ function SpotifyData() {
                 setFetchingArtists(false)
         });
     }
+
 
     function saveToken(token) {
         spotifyWebApi.setAccessToken(token);

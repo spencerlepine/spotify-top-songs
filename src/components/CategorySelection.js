@@ -10,9 +10,9 @@ function CategorySelection(props) {
     })
 
     return (
-        <>
+        <div className="cardGrid">
             {cardList}
-        </>
+        </div>
     )
 }
 
