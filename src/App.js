@@ -1,13 +1,13 @@
 import './App.css';
 import Header from "./components/Header"
-import SpotifyData from "./components/SpotifyData"
+import SpotifyDataContainer from "./components/SpotifyDataContainer"
 import Footer from "./components/Footer"
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <SpotifyData />
+      <SpotifyDataContainer />
       <Footer />
     </div>
   );

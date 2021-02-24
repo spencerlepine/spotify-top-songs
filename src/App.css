@@ -29,6 +29,7 @@
 
 .accountStatus {
   padding: 2%;
+  margin: 15px;
 }
 
 header {
@@ -93,16 +94,23 @@ button {
   border: green 3px solid;
   border-radius: 1.4vh;
   padding: 1% 2%;
+  z-index: 11;
 }
 
-button:hover {
+/* button:hover {
   top: 0.2em;
   box-shadow: 0 0.4em #26c211, 0 0.7em rgba(0, 0, 0, 0.4);
 }
+*/
+button:active:not(.generateBTN) {
+  position: relative;
+  top: 0.2em;
+  /* box-shadow: 0 0.2em rgba(0, 0, 0, 0.4); */
+}
 
-button:active {
-  top: 0.6em;
-  box-shadow: 0 0.2em rgba(0, 0, 0, 0.4);
+.generateBTN:active {
+  position: absolute !important;
+  top: 1em;
 }
 
 .userWelcome {
@@ -125,8 +133,7 @@ button:active {
 }
 
 .card img {
-  width: 80%;
-  height: 90%;
+  width: 70%;
   margin: auto;
   border-radius: 50%;
   min-height: 80px;
@@ -174,6 +181,10 @@ button:active {
   color: #5f5f5f;
 }
 
+.checked img {
+  filter: opacity(0.4)
+}
+
 .checked:before {
   content: "\2713";
   font-size: x-large;
@@ -182,11 +193,12 @@ button:active {
   width: 30px;
   height: 30px;
   padding: 0;
-  top: 1%;
-  right: 8%;
+  top: 0.5vh;
+  right: 2vw;
   background-color: green;
   border-radius: 50%;
   font-weight: bolder;
+  z-index: 3;
 }
 
 .generateBTN {
@@ -206,21 +218,22 @@ button:active {
   transition-duration: 100ms;
 }
 
-.progressBar {
-  animation: load;
-  animation-duration: 10s;
-  animation-timing-function: linear;
-  background-color: green;
-  height: 10px;
-  width: 80vw;
-  margin-left: 10vw;
+.playlistLink a {
+  font-size: 2em;
+  color: #e7fffb;
+  padding: 10px;
+  margin: 5px 10px;
+  border: 2px solid #656565; 
+  font-family: 'Bebas Neue', cursive;
 }
 
-@keyframes load {
-  from {
-    width: 0vw;
-  }
-  to {
-    width: 80vw;
-  }
+.playlistLink {
+  margin: 30vh auto;
+}
+
+.homeLink {
+  font-size: 2em;
+  color: #10b525;
+  padding: 10px;
+  font-family: 'Bebas Neue', cursive;
 }

@@ -26,7 +26,7 @@ function LoginButton(props) {
         //localStorage.setItem(stateKey, state);
 
         // https://developer.spotify.com/documentation/general/guides/scopes/
-        var scope = 'user-read-private user-read-email user-read-playback-state';
+        var scope = 'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private';
 
         var url = 'https://accounts.spotify.com/authorize';
         url += '?response_type=token';
