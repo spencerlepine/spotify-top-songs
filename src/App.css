@@ -133,7 +133,8 @@ button:active:not(.generateBTN) {
 }
 
 .card img {
-  width: 70%;
+  width: 80%;
+  height: 90%;
   margin: auto;
   border-radius: 50%;
   min-height: 80px;
@@ -231,7 +232,7 @@ button:active:not(.generateBTN) {
   margin: 30vh auto;
 }
 
-.homeLink {
+.homeLink a {
   font-size: 2em;
   color: #10b525;
   padding: 10px;
