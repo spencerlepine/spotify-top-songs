@@ -3,6 +3,7 @@ import SpotifyWebApi from "spotify-web-api-js"
 import LoginButton from "./LoginButton"
 import SpotifyDataComponent from "./SpotifyDataComponent"
 import UserPlaylist from "./UserPlaylist"
+import DataFetcher from "./DataFetcher"
 
 const spotifyWebApi = new SpotifyWebApi();
 
@@ -29,39 +30,11 @@ function SpotifyData() {
     const [finalPlaylist, setFinalPlaylist] = useState()
     const [playlistLink, setPlaylistLink] = useState({href: '', id: null})
 
-    function getMe() {
-        spotifyWebApi.getMe()
-            .then((response) => {
-                if (response) {
-                    setCurrentUser(response)
-                } 
-        });
-    }
-
-    function getCategories() {
-        spotifyWebApi.getCategories()
-            .then((response) => {
-                if (response) {
-                    setAvailableCategories(response.categories.items)
-                } 
-        });
+    function saveToken(token) {
+        spotifyWebApi.setAccessToken(token);
+        setToken(token);
     }
     
-    function getCategory(id) {
-        spotifyWebApi.getCategory(id)
-            .then((response) => {
-                setSelectedCategory(response.name);
-                getCategoryPlaylists(response.id);
-        });
-    }
-
-    function getCategoryPlaylists(id) {
-        spotifyWebApi.getCategoryPlaylists(id)
-            .then((response) => {
-                setCategoryPlaylists(response.playlists.items);
-        });
-    }
-
     // Overwrite featuredArtist array with full artist info
     function getArtistImage(id, index) {
         spotifyWebApi.getArtist(id)
@@ -102,25 +75,28 @@ function SpotifyData() {
                 setFetchingArtists(false)
         });
     }
-
-    function saveToken(token) {
-        spotifyWebApi.setAccessToken(token);
-        setToken(token);
-    }
     
     // Abstract the image fetching interations
     function fetchProfiles() {
+        setFetchingArtists(true)
         if (featuredArtists.length > 0) {
             for (let i = 0, l = featuredArtists.length; i < l; i++) {
                 getArtistImage(featuredArtists[i].id, i)
             }
-            setFetchingArtists(true)
         }
     }
 
     function clickCategoryCard(id) {
-        getCategory(id)
+        DataFetcher(spotifyWebApi.getCategory, setSelectedCategory, id)
     }
+    
+    // After the category is found, use the ID
+    useEffect(() => {
+        if (selectedCategory) {
+            DataFetcher(spotifyWebApi.getCategoryPlaylists, setCategoryPlaylists, selectedCategory.id, ['playlists', 'items'])
+            return
+        }
+    }, [selectedCategory])
     
     // Toggle function for card elements
     function clickArtist(index) {
@@ -133,7 +109,6 @@ function SpotifyData() {
 
     function getPlaylistLink() {
         // Use final list
-
         spotifyWebApi.createPlaylist(currentUser.id, {
             "name": "Top Songs",
             "description": "Top songs from your favorite artists. Created with a Spotify React app made by @SpencerLepine",
@@ -153,11 +128,13 @@ function SpotifyData() {
             }
         }).filter(artist => artist);
 
-        //Reset the list
+        // Reset the lists
         setCheckedArtists([])
         setFeaturedArtists([])
         setAvailableCategories([])
-
+        setSelectedCategory(undefined)
+        setCategoryPlaylists([])
+    
         getPlaylistLink()
 
         setFinalPlaylist(finalList);
@@ -165,6 +142,7 @@ function SpotifyData() {
 
     // Once the playlist is created, go through an write the songs to it
     useEffect(() => {
+        console.log(finalPlaylist)
         if (typeof playlistLink.id === 'string') {
             for (let i = 0, l = finalPlaylist.length; i < l; i++) {
                 spotifyWebApi.getArtistTopTracks(finalPlaylist[i].id, "US")
@@ -172,12 +150,13 @@ function SpotifyData() {
                         let tracks = response.tracks.map((track) => track.uri)
                         if (tracks.length > 0) {
                             spotifyWebApi.addTracksToPlaylist(playlistLink.id, tracks)
-                            .catch(reject => console.log(`${finalPlaylist[i].name} - ${reject.JSON} - ${i}`))
-                        } else {
-                            console.log(`Artist: ${finalPlaylist[i].id} did not cooperate`)
+                            .catch(reject => {
+                                console.log(finalPlaylist[i])
+                                console.log(`Artist: ${finalPlaylist[i].name} did not cooperate`)
+                            })
                         }
                     })
-                setTimeout(100) // Don't call the API so quickly
+                setTimeout(200) // Don't call the API so quickly in case they block this
             }
 
             console.log(`Up to ${finalPlaylist.length*10} songs were added to your playlist`)
@@ -206,29 +185,32 @@ function SpotifyData() {
     // Start fetching data once the key is found ONCE
     useEffect(() => {
         if (token) {
-            getMe()
-            getCategories()
+            DataFetcher(spotifyWebApi.getMe, setCurrentUser)
+            DataFetcher(spotifyWebApi.getCategories, setAvailableCategories, null, ['categories', 'items'])
             return
         }
     }, [token])
-
+    
     return (
         <>
-            {!token && <LoginButton saveToken={saveToken} />}
+            {!token 
+            ? (
+                <LoginButton saveToken={saveToken} />
+                
+            ) : (
+                <SpotifyDataComponent 
+                    clickArtist={clickArtist}
+                    submitSelectedArtist={submitSelectedArtist}
+                    clickCategoryCard={clickCategoryCard}
+                    currentUser={currentUser}
+                    availableCategories={availableCategories ? availableCategories : []}
+                    selectedCategory={selectedCategory}
+                    categoryPlaylists={categoryPlaylists}
+                    featuredArtists={featuredArtists}
+                    checkedArtists={checkedArtists}
+                />
+            )}
             
-            {token &&
-            <SpotifyDataComponent 
-                clickArtist={clickArtist}
-                submitSelectedArtist={submitSelectedArtist}
-                clickCategoryCard={clickCategoryCard}
-                currentUser={currentUser}
-                availableCategories={availableCategories}
-                selectedCategory={selectedCategory}
-                categoryPlaylists={categoryPlaylists}
-                featuredArtists={featuredArtists}
-                checkedArtists={checkedArtists}
-            />}
-
             {finalPlaylist && <UserPlaylist finalPlaylist={finalPlaylist} playlistLink={playlistLink.href} />}
         </>
     )

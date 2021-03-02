@@ -3,7 +3,7 @@ import React from "react"
 function Header() {
     return (
         <header className="App-header">
-            <p>Create a personalized Spotify playlist</p>
+            <p>Top Songs: Create a personalized Spotify playlist</p>
         </header>
     )
 }
