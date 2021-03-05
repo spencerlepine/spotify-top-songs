@@ -1,16 +1,19 @@
 import './App.css';
 import Header from "./components/Header"
-import SpotifyDataContainer from "./components/SpotifyDataContainer"
+import SpotifyDataComponent from "./components/SpotifyDataComponent"
 import Footer from "./components/Footer"
+import {SpotifyContextProvider} from "./SpotifyContext"
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-      <SpotifyDataContainer />
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Header />
+            <SpotifyContextProvider>
+                <SpotifyDataComponent />
+            </SpotifyContextProvider>
+            <Footer />
+        </div>
+    );
 }
 
 export default App;

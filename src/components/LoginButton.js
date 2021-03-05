@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useContext} from "react"
 import parseCallBack from "./parseCallback"
 import UserWelcome from "./UserWelcome"
+import {SpotifyContext} from "../SpotifyContext"
 
-function LoginButton(props) {
-    const [promptLogin, setPromptLogin] = useState(true);
+function LoginButton() {
+    const {token, setToken} = useContext(SpotifyContext);
 
     useEffect(() => {
         const validToken = parseCallBack(window.location.href);
 
         if (validToken) {
-            props.saveToken(validToken)
+            setToken(validToken)
             window.location.hash = '' // App will rerender with just .location
-        } else {
-            setPromptLogin(true);
         }
     }, [])
 
@@ -40,7 +39,7 @@ function LoginButton(props) {
 
     return (
         <div className="accountStatus">
-            {promptLogin && (<>
+            {!token && (<>
                 <UserWelcome />
                 <button onClick={connectSpotify}>Connect Account</button>
             </>)}

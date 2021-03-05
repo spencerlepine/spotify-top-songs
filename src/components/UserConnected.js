@@ -1,12 +1,21 @@
-import React from "react"
+import React, {useContext} from "react"
+import {SpotifyContext} from "../SpotifyContext"
 
 function UserConnected(props) {
+    const {user} = useContext(SpotifyContext)
+
     return (
         <>
-            {props.currentUser && 
-            <p className="userWelcome">
-                {String.fromCharCode(183)}{String.fromCharCode(183)}{String.fromCharCode(183)}{props.currentUser}{String.fromCharCode(183)}{String.fromCharCode(183)}{String.fromCharCode(183)}
-            </p>
+            {user && 
+                <p className="userWelcome">
+                    {String.fromCharCode(183)}
+                    {String.fromCharCode(183)}
+                    {String.fromCharCode(183)}
+                    {user.display_name}
+                    {String.fromCharCode(183)}
+                    {String.fromCharCode(183)}
+                    {String.fromCharCode(183)}
+                </p>
             }
         </>
     )
