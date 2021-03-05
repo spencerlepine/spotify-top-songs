@@ -249,7 +249,8 @@ button:active:not(.generateBTN) {
   margin: 30vh auto;
 }
 
-.homeLink a {
+.homeLink {
+  text-decoration: underline;
   font-size: 2em;
   color: #10b525;
   padding: 10px;

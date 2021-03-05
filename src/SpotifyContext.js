@@ -1,5 +1,6 @@
 import React, {useState, useEffect, createContext} from "react"
 import SpotifyWebApi from "spotify-web-api-js"
+import {Redirect, useHistory} from "react-router-dom"
 
 const spotifyWebApi = new SpotifyWebApi();
 const SpotifyContext = createContext()
@@ -27,6 +28,8 @@ function SpotifyContextProvider(props) {
     const [playlistLink, setPlaylistLink] = useState({href: '', id: null})
     const [finalPlaylist, setFinalPlaylist] = useState([]);
 
+    const history = useHistory();
+
     // Once we have a token, start getting spotify data
     useEffect(() => {
         if (token) {
@@ -36,7 +39,7 @@ function SpotifyContextProvider(props) {
                 .then((response) => setUser(response))
 
             spotifyWebApi.getCategories()
-                .then((response) => setAvailableCategories(response.categories.items))
+                .then((response) => {setAvailableCategories(response.categories.items)})
             return
         }
     }, [token])
@@ -121,7 +124,10 @@ function SpotifyContextProvider(props) {
 
     function clickCategoryCard(id) {
         spotifyWebApi.getCategory(id)
-            .then((response) => setSelectedCategory(response))
+            .then((response) => {
+                setSelectedCategory(response)
+                history.push('/artists')
+            })
     }
     
     function clickArtist(index) {
@@ -133,7 +139,8 @@ function SpotifyContextProvider(props) {
     }
 
     function submitSelectedArtists() {
-        getPlaylistLink()
+        history.push("/generate");
+        getPlaylistLink();
     }
 
     function getPlaylistLink() {
@@ -146,6 +153,12 @@ function SpotifyContextProvider(props) {
         .then((response) => {
             setPlaylistLink({href: `https://open.spotify.com/playlist/${response.id}`, id: response.id})
         })
+    }
+
+    function redirectHome() {
+        setPlaylistLink({href: '', id: null})
+        setFinalPlaylist([]);
+        history.push("/")
     }
 
     useEffect(() => {
@@ -175,6 +188,10 @@ function SpotifyContextProvider(props) {
             }
     
             console.log(`Up to ${finalList.length*10} songs were added to your playlist`)
+            setSelectedCategory("") 
+            setCheckedArtists([])
+            setCategoryPlaylists([])
+            setFetchingArtists(true)
             return
         }
     }, [playlistLink])
@@ -192,7 +209,9 @@ function SpotifyContextProvider(props) {
             checkedArtists,
             playlistLink,
             finalPlaylist,
-            submitSelectedArtists
+            submitSelectedArtists,
+            redirectHome,
+            setPlaylistLink
         }}>
             {props.children}
         </SpotifyContext.Provider>

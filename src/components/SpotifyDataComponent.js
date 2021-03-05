@@ -4,30 +4,43 @@ import UserConnected from "./UserConnected"
 import LoginButton from "./LoginButton"
 import CategoryList from "./CategoryList"
 import ArtistList from "./ArtistList"
-import PlaylistGenerator from "./PlaylistGenerator"
+import UserPlaylist from "./UserPlaylist"
+
+import {Switch, Route} from "react-router-dom"
 
 function SpotifyDataComponent() {
     const {selectedCategory, checkedArtists, submitSelectedArtists, playlistLink} = useContext(SpotifyContext);
 
     return (
         <>
-            <LoginButton />
+            <Switch>
+                <Route path="/categories">
+                    <UserConnected />
+                    {!selectedCategory && <CategoryList />}
+                </Route>
 
-            <UserConnected />
+                <Route path="/artists">
+                    <UserConnected />
+                    {selectedCategory && <ArtistList />}
+                    {
+                        checkedArtists.filter(i => i).length > 0
+                            &&
+                        playlistLink.href === ''
+                            && 
+                        <button onClick={submitSelectedArtists} className="generateBTN">Generate</button>
+                    }
+                </Route>
 
-            {!selectedCategory && <CategoryList />}
-
-            {selectedCategory && <ArtistList />}
-
-            {
-                checkedArtists.filter(i => i).length > 0
-                    &&
-                playlistLink.href === ''
-                    && 
-                <button onClick={submitSelectedArtists} className="generateBTN">Generate</button>
-            }
-
-            {<PlaylistGenerator />}
+                <Route path="/generate">
+                    <UserConnected />
+                    {<UserPlaylist />}
+                </Route>
+                
+                <Route path="/">
+                    <LoginButton />
+                </Route>
+            </Switch>
+    
         </>
     )
 }

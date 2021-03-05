@@ -2,8 +2,11 @@ import React, {useState, useEffect, useContext} from "react"
 import parseCallBack from "./parseCallback"
 import UserWelcome from "./UserWelcome"
 import {SpotifyContext} from "../SpotifyContext"
+import {useHistory} from "react-router-dom"
 
 function LoginButton() {
+    const history = useHistory();
+
     const {token, setToken} = useContext(SpotifyContext);
 
     useEffect(() => {
@@ -11,7 +14,7 @@ function LoginButton() {
 
         if (validToken) {
             setToken(validToken)
-            window.location.hash = '' // App will rerender with just .location
+            // window.location.hash = '' // App will rerender with just .location
         }
     }, [])
 
@@ -39,12 +42,19 @@ function LoginButton() {
 
     return (
         <div className="accountStatus">
-            {!token && (<>
+            {!token
+            ? 
+            (<>
                 <UserWelcome />
                 <button onClick={connectSpotify}>Connect Account</button>
-            </>)}
+            </>)
+            :
+            (<>
+                <button onClick={() => history.push("/categories")}>NEW PLAYLIST</button>
+            </>)
+            }
         </div>
     )
 }
 
-export default LoginButton
+export default React.memo(LoginButton)
