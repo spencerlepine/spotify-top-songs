@@ -9,7 +9,9 @@ Connect user Spotify accounts to this React App and create personalized playlist
 View the [demo](https://master.dj6fzfb5de88f.amplifyapp.com/)
 
 #### Resources:
-[Spotify Web Api JS Wrapper](https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js)
+- [React](https://reactjs.org/)
+- [Spotify Web Api JS Wrapper](https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js)
+- [React Router](https://reactrouter.com/)
 
 ### To-do:
 - Reorder/Shuffle songs: [DOCS](https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks)

@@ -9,7 +9,7 @@ import UserPlaylist from "./UserPlaylist"
 import {Switch, Route} from "react-router-dom"
 
 function SpotifyDataComponent() {
-    const {selectedCategory, checkedArtists, submitSelectedArtists, playlistLink} = useContext(SpotifyContext);
+    const {selectedCategory, checkedArtists, submitSelectedArtists} = useContext(SpotifyContext);
 
     return (
         <>
@@ -24,8 +24,6 @@ function SpotifyDataComponent() {
                     {selectedCategory && <ArtistList />}
                     {
                         checkedArtists.filter(i => i).length > 0
-                            &&
-                        playlistLink.href === ''
                             && 
                         <button onClick={submitSelectedArtists} className="generateBTN">Generate</button>
                     }
@@ -35,12 +33,11 @@ function SpotifyDataComponent() {
                     <UserConnected />
                     {<UserPlaylist />}
                 </Route>
-                
+
                 <Route path="/">
                     <LoginButton />
                 </Route>
             </Switch>
-    
         </>
     )
 }
