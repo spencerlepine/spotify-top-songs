@@ -6,17 +6,25 @@ function ArtistList() {
     const {featuredArtists, selectedCategory, clickArtist, checkedArtists} = useContext(SpotifyContext)
 
     const artistList = featuredArtists.map((artist, index) => {
-        let profilePic = artist.images ? artist.images[2].url : error
-        
-        return (<div key={index}
-                    onClick={() => clickArtist(index)}
-                    className={checkedArtists[index] ? "checked card" : "card"}>
-                    <div style={{opacity: profilePic === error ? "0" : "1"}}>   
-                        <img src={profilePic} alt="Artist profile"></img>
+        let profilePic = error
+        if (artist.images) {
+            if (artist.images.length > 0) {
+                profilePic = artist.images[2].url 
+
+                return (
+                    <div key={index}
+                        onClick={() => clickArtist(index)}
+                        className={checkedArtists[index] ? "checked card" : "card"}>
+                        <div style={{opacity: profilePic === error ? "0" : "1"}}>   
+                            <img src={profilePic} alt="Artist profile"></img>
+                        </div>
+                        <p>{artist.name}</p>
                     </div>
-                    <p>{artist.name}</p>
-                </div>
-    )});
+                )
+            }
+        }
+
+        });
 
     return (
         <div className="cardGrid">

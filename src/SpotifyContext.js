@@ -74,15 +74,16 @@ function SpotifyContextProvider(props) {
                     let thisArtist = startingTracks[i].track.artists[0];
 
                     setFeaturedArtists((prevArray) => {
+                        // Make a boolean array of the same length
+                        setCheckedArtists((prevArray) => [...prevArray, false])
+
                         // Skip if this artist already was saved
                         for (let i = 0, l = prevArray.length; i < l; i++) {
                             if (`${prevArray[i].id}` === `${thisArtist.id}`) {
                                 return prevArray
                             }
                         }
-                       
-                        // Make a boolean array of the same length
-                        setCheckedArtists((prevArray) => [...prevArray, false])
+
                         let updatedList = [...prevArray, {id: thisArtist.id}]
                         return updatedList
                     })
@@ -114,6 +115,10 @@ function SpotifyContextProvider(props) {
         spotifyWebApi.getArtist(id)
             .then((response) => {
                 setFeaturedArtists((prevArray) => {
+                    if (response.popularity < 10) {
+                        return prevArray
+                    }
+
                     let updatedList = [...prevArray]
                     updatedList[index] = response
 
