@@ -1,0 +1,23 @@
+To-do:
+  Reorder/Shuffle songs: DOCS (visit spotify api docs)
+  Get artist's related artists DOCS (visit spotify api docs)
+  (remove the current one if it already exists? then put this one here?)
+  replace logo.svg
+  replace favicon, logo192, logo512
+  back button
+  Readme instructions (npm install, npm start)
+  Callback link in auth_server/public/index.html?
+  add related artists bubble
+  button generate ui fix
+  filter out /callback# if it is already in location in
+  handle errors (error react fallback)
+  auto redirect if you type in sneaky link
+  new playlist on home page
+  back button
+  reset all lists?
+  remove call back on home page before trying to auth
+  userplaylist, artist list of names
+  get rid of console logs
+  make sure playlist isn't null, becuase it won't get artists (at home playlist)
+  clear callback from url if token exists (BUT DONT REFRESH THE WHOLE STATE OF "/")
+  add info to landing page for NEW PLAYLIST
