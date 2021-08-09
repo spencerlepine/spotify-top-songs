@@ -19,26 +19,6 @@ View the [demo](https://master.dj6fzfb5de88f.amplifyapp.com/)
 - ```npm install```
 - ```npm start```
 
-### To-do:
-- Reorder/Shuffle songs: [DOCS](https://developer.spotify.com/documentation/web-api/reference/#endpoint-reorder-or-replace-playlists-tracks)
-- Get artist's related artists [DOCS](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-an-artists-related-artists)
-- (remove the current one if it already exists? then put this one here?)
-- replace logo.svg
-- replace favicon, logo192, logo512
-- back button
-- Readme instructions (npm install, npm start)
-- Callback link in auth_server/public/index.html?
-- add related artists bubble 
-- button generate ui fix
-- filter out /callback# if it is already in location in <LoginComponent />
-- handle errors (error react fallback)
-- auto redirect if you type in sneaky link
-- new playlist on home page
-- back button
-- reset all lists? 
-- remove call back on home page before trying to auth
-- userplaylist, artist list of names
-- get rid of console logs
-- make sure playlist isn't null, becuase it won't get artists (at home playlist)
-- clear callback from url if token exists (BUT DONT REFRESH THE WHOLE STATE OF "/")
-- add info to landing page for NEW PLAYLIST
+---
+
+> [spencerlepine.com](https://www.spencerlepine.com) &nbsp;&middot;&nbsp; GitHub [@spencerlepine](https://github.com/spencerlepine) &nbsp;&middot;&nbsp; Twitter [@spencerlepine](http://twitter.com/spencerlepine)
