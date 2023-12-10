@@ -1,8 +1,6 @@
 # Spotify Top Songs
 
-Generate a Spotify playlist based on the top rated songs of your favorite artists.
-
-Connect user Spotify accounts to this React App and create personalized playlists by calling the Spotify Web API.
+Connect a Spotify account, select all your favorite artists, and generate a playlist with each of their current top 5 rated songs.
 
 ![App demo](./demo.gif)
 
@@ -10,7 +8,7 @@ View the [demo](https://master.dj6fzfb5de88f.amplifyapp.com/)
 
 #### Technologies:
 - [React](https://reactjs.org/)
-- [Spotify Web Api JS Wrapper](https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js)
+- [Spotify Web API](https://developer.spotify.com/)
 - [React Router](https://reactrouter.com/)
 
 ### Setup:
